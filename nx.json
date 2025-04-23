@@ -83,11 +83,12 @@
         "bundler": "vite"
       },
       "component": {
-        "style": "css"
+        "style": "tailwind"
       },
       "library": {
         "style": "css",
-        "linter": "eslint"
+        "linter": "eslint",
+        "unitTestRunner": "vitest"
       }
     }
   }

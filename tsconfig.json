@@ -8,6 +8,9 @@
     },
     {
       "path": "./apps/remitcloud-frontend"
+    },
+    {
+      "path": "./libs/shared/ui"
     }
   ]
 }
