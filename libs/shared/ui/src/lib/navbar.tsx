@@ -6,9 +6,10 @@ import {
   Headphones,
   House,
   Megaphone,
+  Search,
   Users,
 } from 'lucide-react';
-import { Input } from '../components/ui/input';
+import { Input, InputIcon, InputRoot } from '../components/ui/input';
 import NavLink from '../components/NavLink';
 import NavLinkCollapsable from '../components/NavLinkCollapsable';
 
@@ -29,7 +30,12 @@ export function Navbar(props: NavbarProps) {
         <h1 className="text-xl font-bold">RemitUnion</h1>
       </div>
 
-      <Input className="mt-6" placeholder="Search" />
+      <InputRoot className="mt-8 text-[#667085]">
+        <InputIcon>
+          <Search />
+        </InputIcon>
+        <Input placeholder="Search" />
+      </InputRoot>
 
       <ul className="mt-6 py-2">
         <li>
