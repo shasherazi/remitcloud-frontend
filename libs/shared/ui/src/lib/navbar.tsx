@@ -15,6 +15,7 @@ import NavLinkCollapsable from '../components/NavLinkCollapsable';
 
 interface NavbarProps {
   logo: string;
+  currentPath: string;
 }
 
 export function Navbar(props: NavbarProps) {
@@ -39,7 +40,7 @@ export function Navbar(props: NavbarProps) {
 
       <ul className="mt-6 py-2">
         <li>
-          <NavLink label="Dashboard" icon={House} href="/" active={true} />
+          <NavLink label="Dashboard" icon={House} href="/" />
           <NavLinkCollapsable
             mainLabel="Users"
             mainIcon={Users}
@@ -74,7 +75,12 @@ export function Navbar(props: NavbarProps) {
             subLabels={[]}
             hrefs={[]}
           />
-          <NavLink label="Complaints" icon={Headphones} href="/" />
+          <NavLink
+            label="Complaints"
+            icon={Headphones}
+            href="/complaints"
+            isActive={props.currentPath === '/complaints'}
+          />
           <NavLink label="Promotions" icon={Megaphone} href="/" />
         </li>
       </ul>

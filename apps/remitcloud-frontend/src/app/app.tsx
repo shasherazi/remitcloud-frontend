@@ -1,11 +1,7 @@
-import { Navbar } from '@remitcloud-frontend/ui';
-import logo from '../assets/Logomark.svg';
-
 export function App() {
   return (
     <div className="flex gap-8">
-      <Navbar logo={logo} />
-      <h1 className="text-2xl bg-amber-400">hi</h1>
+      <h1 className="text-2xl bg-amber-400">index route</h1>
     </div>
   );
 }

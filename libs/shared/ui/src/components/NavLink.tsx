@@ -1,16 +1,16 @@
 import { LucideIcon } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 
 interface NavLinkProps {
   icon?: LucideIcon;
   label: string;
   href?: string; // TODO: make it required
-  active?: boolean;
+  isActive?: boolean;
 }
 
 export default function NavLink(props: NavLinkProps) {
-  const [isActive, setIsActive] = useState(props.active || false);
+  const [isActive, setIsActive] = useState(props.isActive || false);
 
   return (
     <div

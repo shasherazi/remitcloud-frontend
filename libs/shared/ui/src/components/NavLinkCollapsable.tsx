@@ -7,12 +7,12 @@ interface NavLinkCollapsableProps {
   mainLabel: string;
   subLabels?: string[]; // TODO: make it required
   hrefs?: string[]; // TODO: make it required
-  active?: boolean;
+  isActive?: boolean;
 }
 
 export default function NavLinkCollapsable(props: NavLinkCollapsableProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isActive, setIsActive] = useState(props.active || false);
+  const [isActive, setIsActive] = useState(props.isActive || false);
 
   return (
     <div onClick={() => setIsOpen(!isOpen)}>
@@ -33,7 +33,8 @@ export default function NavLinkCollapsable(props: NavLinkCollapsableProps) {
       {isOpen && (
         <div className="subLabels ml-12 mt-3 mb-[-4px]">
           {props.subLabels?.map((label, index) => (
-            <NavLink key={index} label={label} href={props.hrefs?.[index]} />))}
+            <NavLink key={index} label={label} href={props.hrefs?.[index]} />
+          ))}
         </div>
       )}
     </div>
