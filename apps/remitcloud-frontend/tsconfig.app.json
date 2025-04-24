@@ -5,12 +5,18 @@
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "jsx": "react-jsx",
     "lib": ["dom"],
+    "baseUrl": ".",
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts",
       "vite/client"
     ],
+    "paths": {
+      "@types": ["../../types/index.d.ts"],
+      "@shared/ui": ["../../libs/shared/ui/src/index.ts"],
+      "@shared/ui/*": ["../../libs/shared/ui/*"]
+    },
     "rootDir": "src"
   },
   "exclude": [

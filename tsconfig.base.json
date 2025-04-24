@@ -5,8 +5,17 @@
       "@/*": [
         "./*"
       ],
+      "@shared/ui": [
+        "libs/shared/ui/src/index.ts"
+      ],
       "@shared/ui/*": [
         "./libs/shared/ui/*"
+      ],
+      "@types": [
+        "./types/index.d.ts"
+      ],
+      "@types/*": [
+        "./types/index.d.ts"
       ]
     },
     "composite": true,
