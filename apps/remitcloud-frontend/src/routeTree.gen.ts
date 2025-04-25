@@ -12,9 +12,11 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as NavbarLayoutRouteImport } from './routes/_NavbarLayout/route'
-import { Route as IndexImport } from './routes/index'
+import { Route as NavbarLayoutIndexImport } from './routes/_NavbarLayout/index'
 import { Route as NavbarLayoutBreadcrumbsRouteImport } from './routes/_NavbarLayout/_breadcrumbs/route'
 import { Route as NavbarLayoutBreadcrumbsComplaintsIndexImport } from './routes/_NavbarLayout/_breadcrumbs/complaints/index'
+import { Route as NavbarLayoutBreadcrumbsusersAgentsIndexImport } from './routes/_NavbarLayout/_breadcrumbs/(users)/agents/index'
+import { Route as NavbarLayoutBreadcrumbsusersAgentsNewImport } from './routes/_NavbarLayout/_breadcrumbs/(users)/agents/new'
 
 // Create/Update Routes
 
@@ -23,10 +25,10 @@ const NavbarLayoutRouteRoute = NavbarLayoutRouteImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const NavbarLayoutIndexRoute = NavbarLayoutIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => NavbarLayoutRouteRoute,
 } as any)
 
 const NavbarLayoutBreadcrumbsRouteRoute =
@@ -42,17 +44,24 @@ const NavbarLayoutBreadcrumbsComplaintsIndexRoute =
     getParentRoute: () => NavbarLayoutBreadcrumbsRouteRoute,
   } as any)
 
+const NavbarLayoutBreadcrumbsusersAgentsIndexRoute =
+  NavbarLayoutBreadcrumbsusersAgentsIndexImport.update({
+    id: '/(users)/agents/',
+    path: '/agents/',
+    getParentRoute: () => NavbarLayoutBreadcrumbsRouteRoute,
+  } as any)
+
+const NavbarLayoutBreadcrumbsusersAgentsNewRoute =
+  NavbarLayoutBreadcrumbsusersAgentsNewImport.update({
+    id: '/(users)/agents/new',
+    path: '/agents/new',
+    getParentRoute: () => NavbarLayoutBreadcrumbsRouteRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/_NavbarLayout': {
       id: '/_NavbarLayout'
       path: ''
@@ -67,11 +76,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NavbarLayoutBreadcrumbsRouteImport
       parentRoute: typeof NavbarLayoutRouteImport
     }
+    '/_NavbarLayout/': {
+      id: '/_NavbarLayout/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof NavbarLayoutIndexImport
+      parentRoute: typeof NavbarLayoutRouteImport
+    }
     '/_NavbarLayout/_breadcrumbs/complaints/': {
       id: '/_NavbarLayout/_breadcrumbs/complaints/'
       path: '/complaints'
       fullPath: '/complaints'
       preLoaderRoute: typeof NavbarLayoutBreadcrumbsComplaintsIndexImport
+      parentRoute: typeof NavbarLayoutBreadcrumbsRouteImport
+    }
+    '/_NavbarLayout/_breadcrumbs/(users)/agents/new': {
+      id: '/_NavbarLayout/_breadcrumbs/(users)/agents/new'
+      path: '/agents/new'
+      fullPath: '/agents/new'
+      preLoaderRoute: typeof NavbarLayoutBreadcrumbsusersAgentsNewImport
+      parentRoute: typeof NavbarLayoutBreadcrumbsRouteImport
+    }
+    '/_NavbarLayout/_breadcrumbs/(users)/agents/': {
+      id: '/_NavbarLayout/_breadcrumbs/(users)/agents/'
+      path: '/agents'
+      fullPath: '/agents'
+      preLoaderRoute: typeof NavbarLayoutBreadcrumbsusersAgentsIndexImport
       parentRoute: typeof NavbarLayoutBreadcrumbsRouteImport
     }
   }
@@ -81,12 +111,18 @@ declare module '@tanstack/react-router' {
 
 interface NavbarLayoutBreadcrumbsRouteRouteChildren {
   NavbarLayoutBreadcrumbsComplaintsIndexRoute: typeof NavbarLayoutBreadcrumbsComplaintsIndexRoute
+  NavbarLayoutBreadcrumbsusersAgentsNewRoute: typeof NavbarLayoutBreadcrumbsusersAgentsNewRoute
+  NavbarLayoutBreadcrumbsusersAgentsIndexRoute: typeof NavbarLayoutBreadcrumbsusersAgentsIndexRoute
 }
 
 const NavbarLayoutBreadcrumbsRouteRouteChildren: NavbarLayoutBreadcrumbsRouteRouteChildren =
   {
     NavbarLayoutBreadcrumbsComplaintsIndexRoute:
       NavbarLayoutBreadcrumbsComplaintsIndexRoute,
+    NavbarLayoutBreadcrumbsusersAgentsNewRoute:
+      NavbarLayoutBreadcrumbsusersAgentsNewRoute,
+    NavbarLayoutBreadcrumbsusersAgentsIndexRoute:
+      NavbarLayoutBreadcrumbsusersAgentsIndexRoute,
   }
 
 const NavbarLayoutBreadcrumbsRouteRouteWithChildren =
@@ -96,57 +132,65 @@ const NavbarLayoutBreadcrumbsRouteRouteWithChildren =
 
 interface NavbarLayoutRouteRouteChildren {
   NavbarLayoutBreadcrumbsRouteRoute: typeof NavbarLayoutBreadcrumbsRouteRouteWithChildren
+  NavbarLayoutIndexRoute: typeof NavbarLayoutIndexRoute
 }
 
 const NavbarLayoutRouteRouteChildren: NavbarLayoutRouteRouteChildren = {
   NavbarLayoutBreadcrumbsRouteRoute:
     NavbarLayoutBreadcrumbsRouteRouteWithChildren,
+  NavbarLayoutIndexRoute: NavbarLayoutIndexRoute,
 }
 
 const NavbarLayoutRouteRouteWithChildren =
   NavbarLayoutRouteRoute._addFileChildren(NavbarLayoutRouteRouteChildren)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '': typeof NavbarLayoutBreadcrumbsRouteRouteWithChildren
+  '/': typeof NavbarLayoutIndexRoute
   '/complaints': typeof NavbarLayoutBreadcrumbsComplaintsIndexRoute
+  '/agents/new': typeof NavbarLayoutBreadcrumbsusersAgentsNewRoute
+  '/agents': typeof NavbarLayoutBreadcrumbsusersAgentsIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '': typeof NavbarLayoutBreadcrumbsRouteRouteWithChildren
+  '/': typeof NavbarLayoutIndexRoute
   '/complaints': typeof NavbarLayoutBreadcrumbsComplaintsIndexRoute
+  '/agents/new': typeof NavbarLayoutBreadcrumbsusersAgentsNewRoute
+  '/agents': typeof NavbarLayoutBreadcrumbsusersAgentsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
   '/_NavbarLayout': typeof NavbarLayoutRouteRouteWithChildren
   '/_NavbarLayout/_breadcrumbs': typeof NavbarLayoutBreadcrumbsRouteRouteWithChildren
+  '/_NavbarLayout/': typeof NavbarLayoutIndexRoute
   '/_NavbarLayout/_breadcrumbs/complaints/': typeof NavbarLayoutBreadcrumbsComplaintsIndexRoute
+  '/_NavbarLayout/_breadcrumbs/(users)/agents/new': typeof NavbarLayoutBreadcrumbsusersAgentsNewRoute
+  '/_NavbarLayout/_breadcrumbs/(users)/agents/': typeof NavbarLayoutBreadcrumbsusersAgentsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/complaints'
+  fullPaths: '' | '/' | '/complaints' | '/agents/new' | '/agents'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/complaints'
+  to: '' | '/' | '/complaints' | '/agents/new' | '/agents'
   id:
     | '__root__'
-    | '/'
     | '/_NavbarLayout'
     | '/_NavbarLayout/_breadcrumbs'
+    | '/_NavbarLayout/'
     | '/_NavbarLayout/_breadcrumbs/complaints/'
+    | '/_NavbarLayout/_breadcrumbs/(users)/agents/new'
+    | '/_NavbarLayout/_breadcrumbs/(users)/agents/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   NavbarLayoutRouteRoute: typeof NavbarLayoutRouteRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   NavbarLayoutRouteRoute: NavbarLayoutRouteRouteWithChildren,
 }
 
@@ -160,28 +204,39 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/_NavbarLayout"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
     },
     "/_NavbarLayout": {
       "filePath": "_NavbarLayout/route.tsx",
       "children": [
-        "/_NavbarLayout/_breadcrumbs"
+        "/_NavbarLayout/_breadcrumbs",
+        "/_NavbarLayout/"
       ]
     },
     "/_NavbarLayout/_breadcrumbs": {
       "filePath": "_NavbarLayout/_breadcrumbs/route.tsx",
       "parent": "/_NavbarLayout",
       "children": [
-        "/_NavbarLayout/_breadcrumbs/complaints/"
+        "/_NavbarLayout/_breadcrumbs/complaints/",
+        "/_NavbarLayout/_breadcrumbs/(users)/agents/new",
+        "/_NavbarLayout/_breadcrumbs/(users)/agents/"
       ]
+    },
+    "/_NavbarLayout/": {
+      "filePath": "_NavbarLayout/index.tsx",
+      "parent": "/_NavbarLayout"
     },
     "/_NavbarLayout/_breadcrumbs/complaints/": {
       "filePath": "_NavbarLayout/_breadcrumbs/complaints/index.tsx",
+      "parent": "/_NavbarLayout/_breadcrumbs"
+    },
+    "/_NavbarLayout/_breadcrumbs/(users)/agents/new": {
+      "filePath": "_NavbarLayout/_breadcrumbs/(users)/agents/new.tsx",
+      "parent": "/_NavbarLayout/_breadcrumbs"
+    },
+    "/_NavbarLayout/_breadcrumbs/(users)/agents/": {
+      "filePath": "_NavbarLayout/_breadcrumbs/(users)/agents/index.tsx",
       "parent": "/_NavbarLayout/_breadcrumbs"
     }
   }

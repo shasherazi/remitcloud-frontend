@@ -6,3 +6,13 @@ export interface Complaint {
   date_of_birth: string;
   status: string;
 }
+
+//TODO: maybe add a profile picture link???
+export interface Agent {
+  id: string;
+  nameAndEmail: [string, string];
+  phone: string;
+  date_of_birth: string;
+  status: string;
+}
+

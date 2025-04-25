@@ -1,19 +1,36 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
-import { DataTable, PfpFromName, StatusPill } from '@shared/ui';
+import { Button, DataTable, PfpFromName, StatusPill } from '@shared/ui';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { ColumnDef } from '@tanstack/react-table';
-import type { Complaint } from '@types';
+import { Agent } from '@types';
 import { MessageSquareText, Pencil, Trash2 } from 'lucide-react';
+import { useState } from 'react';
 
-export const Route = createFileRoute('/_NavbarLayout/_breadcrumbs/complaints/')(
-  {
-    component: RouteComponent,
-  }
-);
+export const Route = createFileRoute(
+  '/_NavbarLayout/_breadcrumbs/(users)/agents/'
+)({
+  component: RouteComponent,
+});
 
 function RouteComponent() {
-  // TODO: fetch complaints from the server
-  const mockComplaints: Complaint[] = [
+  const [activeButton, setActiveButton] = useState('List');
+
+  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+    const buttonName = target.innerText;
+
+    if (buttonName === 'List') {
+      setActiveButton('List');
+    } else if (buttonName === 'Deposits') {
+      setActiveButton('Deposits');
+    } else if (buttonName === 'Limits') {
+      setActiveButton('Limits');
+    } else if (buttonName === 'Ledger') {
+      setActiveButton('Ledger');
+    }
+  };
+
+  // TODO: fetch agents from the server
+  const mockAgents: Agent[] = [
     {
       id: '02341',
       nameAndEmail: ['Bojan Liker', 'bojan.likar@remitunion.com'],
@@ -51,7 +68,7 @@ function RouteComponent() {
     },
   ];
 
-  const columns: ColumnDef<Complaint>[] = [
+  const columns: ColumnDef<Agent>[] = [
     {
       accessorKey: 'id',
       header: () => <div className="text-[#475467] text-xs">ID</div>,
@@ -114,13 +131,68 @@ function RouteComponent() {
     },
   ];
 
-  const [complaints, setComplaints] = useState<Complaint[]>(mockComplaints);
+  const [agents, setAgents] = useState<Agent[]>(mockAgents);
 
   return (
     <div>
-      <h1 className="text-3xl font-semibold">Complaints</h1>
+      <div className="flex justify-between mr-8">
+        <h1 className="text-3xl font-semibold">Agents</h1>
+        <Link
+          className="font-semibold text-sm text-white bg-[#7F56D9] hover:bg-[#6941C6] cursor-pointer rounded-lg px-4 py-2.5"
+          to="/agents/new"
+        >
+          Add New Agent
+        </Link>
+      </div>
+      <p className="text-[#475467] mt-1">
+        Manage agents and every activity around agents.
+      </p>
       <hr className="border-[#EAECF0] mr-8 mt-5" />
-      <DataTable columns={columns} data={complaints} className="m-8 ml-0" />
+
+      <div className="buttonGroup mt-8">
+        <Button
+          className={`font-semibold hover:bg-[#EAECF0] hover:text-[#1D2939] border border-[#D0D5DD] rounded-r-none ${
+            activeButton === 'List'
+              ? 'bg-[#EAECF0] text-[#1D2939]'
+              : 'bg-white text-[#344054]'
+          }`}
+          onClick={handleButtonClick}
+        >
+          List
+        </Button>
+        <Button
+          className={`font-semibold hover:bg-[#EAECF0] hover:text-[#1D2939] border border-[#D0D5DD] rounded-none ${
+            activeButton === 'Deposits'
+              ? 'bg-[#EAECF0] text-[#1D2939]'
+              : 'bg-white text-[#344054]'
+          }`}
+          onClick={handleButtonClick}
+        >
+          Deposits
+        </Button>
+        <Button
+          className={`font-semibold hover:bg-[#EAECF0] hover:text-[#1D2939] border border-[#D0D5DD] rounded-none ${
+            activeButton === 'Limits'
+              ? 'bg-[#EAECF0] text-[#1D2939]'
+              : 'bg-white text-[#344054]'
+          }`}
+          onClick={handleButtonClick}
+        >
+          Limits
+        </Button>
+        <Button
+          className={`font-semibold hover:bg-[#EAECF0] hover:text-[#1D2939] border border-[#D0D5DD] rounded-l-none ${
+            activeButton === 'Ledger'
+              ? 'bg-[#EAECF0] text-[#1D2939]'
+              : 'bg-white text-[#344054]'
+          }`}
+          onClick={handleButtonClick}
+        >
+          Ledger
+        </Button>
+      </div>
+
+      <DataTable columns={columns} data={agents} className="m-8 ml-0" />
     </div>
   );
 }

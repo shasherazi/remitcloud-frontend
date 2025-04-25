@@ -1,5 +1,5 @@
 import { Navbar } from '../../../../../libs/shared/ui/src/lib/navbar';
-import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 import logo from '../../assets/Logomark.svg';
 
 export const Route = createFileRoute('/_NavbarLayout')({
@@ -7,11 +7,9 @@ export const Route = createFileRoute('/_NavbarLayout')({
 });
 
 function RouteComponent() {
-  const location = useLocation();
-
   return (
     <div className="flex gap-8 w-full">
-      <Navbar logo={logo} currentPath={location.pathname} />
+      <Navbar logo={logo} />
       <Outlet />
     </div>
   );

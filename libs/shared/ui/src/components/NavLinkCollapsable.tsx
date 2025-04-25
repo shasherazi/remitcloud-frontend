@@ -3,23 +3,30 @@ import NavLink from './NavLink';
 import { ChevronDown, ChevronUp, LucideIcon } from 'lucide-react';
 
 interface NavLinkCollapsableProps {
+  currentPath: string;
   mainIcon: LucideIcon;
   mainLabel: string;
-  subLabels?: string[]; // TODO: make it required
-  hrefs?: string[]; // TODO: make it required
+  subLabels: string[];
+  hrefs: string[];
   isActive?: boolean;
 }
 
 export default function NavLinkCollapsable(props: NavLinkCollapsableProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isActive, setIsActive] = useState(props.isActive || false);
+  const shouldBeActive = props.hrefs.some(
+    (href) =>
+      props.currentPath === href || props.currentPath.startsWith(href + '/')
+  );
+
+  const [isOpen, setIsOpen] = useState(shouldBeActive);
 
   return (
-    <div onClick={() => setIsOpen(!isOpen)}>
-      <div className="mainLabel rounded py-2 px-3 mb-2 hover:bg-[#F9FAFB] flex justify-between">
+    <div>
+      <div
+        className="mainLabel cursor-pointer rounded py-2 px-3 mb-2 hover:bg-[#F9FAFB] flex justify-between"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <div className="flex gap-3">
           <props.mainIcon className="text-[#667085]" />
-          {/* TODO: use correct fonts */}
           <span className="text-[#344054] font-semibold">
             {props.mainLabel}
           </span>
@@ -33,7 +40,16 @@ export default function NavLinkCollapsable(props: NavLinkCollapsableProps) {
       {isOpen && (
         <div className="subLabels ml-12 mt-3 mb-[-4px]">
           {props.subLabels?.map((label, index) => (
-            <NavLink key={index} label={label} href={props.hrefs?.[index]} />
+            <NavLink
+              key={index}
+              label={label}
+              href={props.hrefs[index]}
+              currentPath={props.currentPath}
+              isActive={
+                props.currentPath === props.hrefs[index] ||
+                props.currentPath.startsWith(props.hrefs[index] + '/')
+              }
+            />
           ))}
         </div>
       )}
