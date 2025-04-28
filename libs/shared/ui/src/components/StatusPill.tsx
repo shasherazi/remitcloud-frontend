@@ -8,6 +8,9 @@ export function StatusPill(props: StatusPillProps) {
     'Plan Owner': 'bg-[#F9F5FF] text-[#6941C6] border border-[#EAB8FF]',
     Rejected: 'bg-[#FEF3F2] text-[#B42318] border border-[#FCE4E4]',
     Draft: 'bg-[#F0F9FF] text-[#026AA2] border border-[#B2E0FE]',
+    Incomplete: 'bg-[#FFFAEB] text-[#B54708] border border-[#FEDF89]',
+    Pending: 'bg-[#F0F9FF] text-[#026AA2] border border-[#B9E6FE]',
+    Verifying: 'bg-[#EEF4FF] text-[#3538CD] border border-[#C7D7FE]',
   };
 
   const pillClass =

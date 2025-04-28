@@ -82,12 +82,19 @@ export function Navbar(props: NavbarProps) {
               subLabels={[]}
               hrefs={[]}
             />
-            <NavLinkCollapsable
+            {/* <NavLinkCollapsable */}
+            {/*   currentPath={currentPath} */}
+            {/*   mainLabel="Finance & Settlement" */}
+            {/*   mainIcon={HandCoins} */}
+            {/*   subLabels={[]} */}
+            {/*   hrefs={[]} */}
+            {/* /> */}
+            <NavLink
               currentPath={currentPath}
-              mainLabel="Finance & Settlement"
-              mainIcon={HandCoins}
-              subLabels={[]}
-              hrefs={[]}
+              label="Payments"
+              icon={HandCoins}
+              href="/payments"
+              isActive={currentPath === '/payments'}
             />
             <NavLink
               currentPath={currentPath}

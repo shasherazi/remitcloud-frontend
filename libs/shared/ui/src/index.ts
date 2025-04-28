@@ -5,3 +5,4 @@ export * from './components/ui/select';
 export * from './components/DataTable';
 export * from './components/StatusPill';
 export * from './components/PfpFromName';
+export * from './components/ButtonGroup';

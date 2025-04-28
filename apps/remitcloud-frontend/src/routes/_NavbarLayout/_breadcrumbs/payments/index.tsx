@@ -1,13 +1,11 @@
 import { ButtonGroup, DataTable, PfpFromName, StatusPill } from '@shared/ui';
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { ColumnDef } from '@tanstack/react-table';
-import { Agent } from '@types';
-import { MessageSquareText, Pencil, Trash2 } from 'lucide-react';
+import { Payment } from '@types';
+import { Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-export const Route = createFileRoute(
-  '/_NavbarLayout/_breadcrumbs/(users)/agents/'
-)({
+export const Route = createFileRoute('/_NavbarLayout/_breadcrumbs/payments/')({
   component: RouteComponent,
 });
 
@@ -19,46 +17,38 @@ function RouteComponent() {
     setActiveButton(target.innerText);
   };
 
-  // TODO: fetch agents from the server
-  const mockAgents: Agent[] = [
+  // TODO: fetch payments from the server
+  const mockPayments: Payment[] = [
     {
       id: '02341',
       nameAndEmail: ['Bojan Liker', 'bojan.likar@remitunion.com'],
       phone: '1-650-730-0908 x075',
-      date_of_birth: '1990-09-14',
-      status: 'Collaborator',
+      date: '2023-10-01',
+      amount: '1000',
+      currency: 'USD',
+      status: 'Incomplete',
     },
     {
-      id: '02341',
-      nameAndEmail: ['Olivia Rhye', 'olivia@remitunion.com'],
+      id: '02342',
+      nameAndEmail: ['Olivia Rhye', 'hi@bye.com'],
       phone: '1-650-730-0908 x075',
-      date_of_birth: '1992-07-16',
-      status: 'Plan Owner',
+      date: '2023-10-02',
+      amount: '2000',
+      currency: 'USD',
+      status: 'Pending',
     },
     {
-      id: '02341',
-      nameAndEmail: ['Lana Steiner', 'lana@remitunion.com'],
+      id: '02343',
+      nameAndEmail: ['Lana Steiner', 'bye@hi.com'],
       phone: '431.785.1695 x13962',
-      date_of_birth: '1995-10-08',
-      status: 'Rejected',
-    },
-    {
-      id: '02341',
-      nameAndEmail: ['Demi Wilkinson', 'demi@remitunion.com'],
-      phone: '873.828.0460 x9529',
-      date_of_birth: '1991-10-08',
-      status: 'Collaborator',
-    },
-    {
-      id: '02341',
-      nameAndEmail: ['Candice Wu', 'candice@remitunion.com'],
-      phone: '1-825-495-4968 x28607',
-      date_of_birth: '1994-10-08',
-      status: 'Draft',
+      date: '2023-10-03',
+      amount: '3000',
+      currency: 'USD',
+      status: 'Verifying',
     },
   ];
 
-  const columns: ColumnDef<Agent>[] = [
+  const columns: ColumnDef<Payment>[] = [
     {
       accessorKey: 'id',
       header: () => <div className="text-[#475467] text-xs">ID</div>,
@@ -91,12 +81,25 @@ function RouteComponent() {
       ),
     },
     {
-      accessorKey: 'date_of_birth',
-      header: () => <div className="text-[#475467] text-xs">Date of Birth</div>,
+      accessorKey: 'date',
+      header: () => <div className="text-[#475467] text-xs">Date</div>,
       cell: ({ row }) => (
-        <div className="text-[#344054] text-xs">
-          {row.getValue('date_of_birth')}
-        </div>
+        <div className="text-[#344054] text-xs">{row.getValue('date')}</div>
+      ),
+    },
+    {
+      accessorKey: 'amount',
+      header: () => <div className="text-[#475467] text-xs">Amount</div>,
+      cell: ({ row }) => (
+        // TODO: get correct currency symbol
+        <div className="text-[#344054] text-xs">${row.getValue('amount')}</div>
+      ),
+    },
+    {
+      accessorKey: 'currency',
+      header: () => <div className="text-[#475467] text-xs">Currency</div>,
+      cell: ({ row }) => (
+        <div className="text-[#344054] text-xs">{row.getValue('currency')}</div>
       ),
     },
     {
@@ -113,7 +116,6 @@ function RouteComponent() {
       header: () => <div className="text-[#475467] text-xs">Actions</div>,
       cell: ({ row }) => (
         <div className="flex gap-4">
-          <MessageSquareText className="text-[#475467]" size={18} />
           <Trash2 className="text-[#475467]" size={18} />
           <Pencil className="text-[#475467]" size={18} />
         </div>
@@ -121,33 +123,30 @@ function RouteComponent() {
     },
   ];
 
-  const [agents, setAgents] = useState<Agent[]>(mockAgents);
+  const [payments, setPayments] = useState<Payment[]>(mockPayments);
 
   return (
     <div>
-      <div className="flex justify-between mr-8">
-        <h1 className="text-3xl font-semibold">Agents</h1>
-        <Link
-          className="font-semibold text-sm text-white bg-[#7F56D9] hover:bg-[#6941C6] cursor-pointer rounded-lg px-4 py-2.5"
-          to="/agents/new"
-        >
-          Add New Agent
-        </Link>
-      </div>
-      <p className="text-[#475467] mt-1">
-        Manage agents and every activity around agents.
-      </p>
+      <h1 className="text-3xl font-semibold">Payments</h1>
       <hr className="border-[#EAECF0] mr-8 mt-5" />
-
       <div className="buttonGroup mt-8">
         <ButtonGroup
-          buttonLabels={['List', 'Deposits', 'Limits', 'Ledger']}
+          buttonLabels={[
+            'Incomplete',
+            'Pending',
+            'Verifying',
+            'Compliance Hold',
+            'Processing',
+            'Send to Partner',
+            'Cancelling',
+            'Track',
+            'Belmoney',
+          ]}
           activeButton={activeButton}
           onButtonClick={handleButtonClick}
         />
       </div>
-
-      <DataTable columns={columns} data={agents} className="m-8 ml-0" />
+      <DataTable columns={columns} data={payments} className="m-8 ml-0" />
     </div>
   );
 }
