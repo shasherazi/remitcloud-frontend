@@ -1,7 +1,6 @@
 import {
   Book,
   ClipboardCheck,
-  FileText,
   HandCoins,
   Headphones,
   House,
@@ -90,13 +89,21 @@ export function Navbar(props: NavbarProps) {
               subLabels={[]}
               hrefs={[]}
             />
-            <NavLinkCollapsable
+            <NavLink
               currentPath={currentPath}
-              mainLabel="Reports"
-              mainIcon={FileText}
-              subLabels={[]}
-              hrefs={[]}
+              label="Reports"
+              icon={Headphones}
+              href="/reports"
+              isActive={currentPath === '/reports'}
             />
+            {/* not sure if this is collapsable or not*/}
+            {/* <NavLinkCollapsable */}
+            {/*   currentPath={currentPath} */}
+            {/*   mainLabel="Reports" */}
+            {/*   mainIcon={FileText} */}
+            {/*   subLabels={[]} */}
+            {/*   hrefs={[]} */}
+            {/* /> */}
             <NavLink
               currentPath={currentPath}
               label="Complaints"

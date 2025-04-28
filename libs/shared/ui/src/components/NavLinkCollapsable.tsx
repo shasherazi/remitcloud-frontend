@@ -8,7 +8,7 @@ interface NavLinkCollapsableProps {
   mainLabel: string;
   subLabels: string[];
   hrefs: string[];
-  isActive?: boolean;
+  isActive?: boolean; // TODO: remove if not needed
 }
 
 export default function NavLinkCollapsable(props: NavLinkCollapsableProps) {
