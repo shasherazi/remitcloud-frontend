@@ -20,7 +20,13 @@ export default function NavLinkCollapsable(props: NavLinkCollapsableProps) {
   const [isOpen, setIsOpen] = useState(shouldBeActive);
 
   return (
-    <div>
+    <div
+      className={`${
+        props.mainLabel === 'Transactions' || props.mainLabel === 'Compliance'
+          ? 'bg-red-100'
+          : ''
+      }`}
+    >
       <div
         className="mainLabel cursor-pointer rounded py-2 px-3 mb-2 hover:bg-[#F9FAFB] flex justify-between"
         onClick={() => setIsOpen(!isOpen)}

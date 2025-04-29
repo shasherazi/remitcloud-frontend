@@ -1,6 +1,7 @@
 import {
   Book,
   ClipboardCheck,
+  FileText,
   HandCoins,
   Headphones,
   House,
@@ -99,7 +100,7 @@ export function Navbar(props: NavbarProps) {
             <NavLink
               currentPath={currentPath}
               label="Reports"
-              icon={Headphones}
+              icon={FileText}
               href="/reports"
               isActive={currentPath === '/reports'}
             />

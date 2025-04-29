@@ -14,7 +14,10 @@ export default function NavLink(props: NavLinkProps) {
     <div
       className={`hover:bg-[#F9FAFB] rounded py-2 px-3 mb-2 ${
         props.isActive ? 'bg-[#F9FAFB]' : ''
-      }`}
+      }
+      '// TODO: this is temporary to indicate the not finished pages'
+      ${props.href === '/' ? 'bg-red-100' : ''}
+`}
     >
       <Link to={props.href || '#'}>
         <div className="flex gap-3">
