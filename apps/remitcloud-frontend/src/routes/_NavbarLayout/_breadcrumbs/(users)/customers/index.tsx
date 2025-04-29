@@ -2,18 +2,18 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { DataTable, PfpFromName, StatusPill } from '@shared/ui';
 import { ColumnDef } from '@tanstack/react-table';
-import type { Customer } from '@types';
+import type { Complaint } from '@types';
 import { MessageSquareText, Pencil, Trash2 } from 'lucide-react';
 
-export const Route = createFileRoute('/_NavbarLayout/_breadcrumbs/complaints/')(
-  {
-    component: RouteComponent,
-  }
-);
+export const Route = createFileRoute(
+  '/_NavbarLayout/_breadcrumbs/(users)/customers/'
+)({
+  component: RouteComponent,
+});
 
 function RouteComponent() {
-  // TODO: fetch complaints from the server
-  const mockCustomers: Customer[] = [
+  // TODO: fetch customers from the server
+  const mockComplaints: Complaint[] = [
     {
       id: '02341',
       nameAndEmail: ['Bojan Liker', 'bojan.likar@remitunion.com'],
@@ -51,7 +51,7 @@ function RouteComponent() {
     },
   ];
 
-  const columns: ColumnDef<Customer>[] = [
+  const columns: ColumnDef<Complaint>[] = [
     {
       accessorKey: 'id',
       header: () => <div className="text-[#475467] text-xs">ID</div>,
@@ -114,13 +114,13 @@ function RouteComponent() {
     },
   ];
 
-  const [customers, setCustomers] = useState<Customer[]>(mockCustomers);
+  const [complaints, setComplaints] = useState<Complaint[]>(mockComplaints);
 
   return (
     <div>
-      <h1 className="text-3xl font-semibold">Customers</h1>
+      <h1 className="text-3xl font-semibold">Complaints</h1>
       <hr className="border-[#EAECF0] mr-8 mt-5" />
-      <DataTable columns={columns} data={customers} className="m-8 ml-0" />
+      <DataTable columns={columns} data={complaints} className="m-8 ml-0" />
     </div>
   );
 }

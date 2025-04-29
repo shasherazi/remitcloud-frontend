@@ -61,7 +61,7 @@ export function Navbar(props: NavbarProps) {
                 'Customer Management',
                 'Agent/Sub-Agent',
               ]}
-              hrefs={['/', '/', '/agents']}
+              hrefs={['/', '/customers', '/agents']}
               isActive={
                 currentPath === '/' || // TODO: use correct path
                 currentPath === '/' || // TODO: use correct path

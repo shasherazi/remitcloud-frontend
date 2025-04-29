@@ -17,6 +17,7 @@ import { Route as NavbarLayoutBreadcrumbsRouteImport } from './routes/_NavbarLay
 import { Route as NavbarLayoutBreadcrumbsReportsIndexImport } from './routes/_NavbarLayout/_breadcrumbs/reports/index'
 import { Route as NavbarLayoutBreadcrumbsPaymentsIndexImport } from './routes/_NavbarLayout/_breadcrumbs/payments/index'
 import { Route as NavbarLayoutBreadcrumbsComplaintsIndexImport } from './routes/_NavbarLayout/_breadcrumbs/complaints/index'
+import { Route as NavbarLayoutBreadcrumbsusersCustomersIndexImport } from './routes/_NavbarLayout/_breadcrumbs/(users)/customers/index'
 import { Route as NavbarLayoutBreadcrumbsusersAgentsIndexImport } from './routes/_NavbarLayout/_breadcrumbs/(users)/agents/index'
 import { Route as NavbarLayoutBreadcrumbsusersAgentsNewImport } from './routes/_NavbarLayout/_breadcrumbs/(users)/agents/new'
 
@@ -57,6 +58,13 @@ const NavbarLayoutBreadcrumbsComplaintsIndexRoute =
   NavbarLayoutBreadcrumbsComplaintsIndexImport.update({
     id: '/complaints/',
     path: '/complaints/',
+    getParentRoute: () => NavbarLayoutBreadcrumbsRouteRoute,
+  } as any)
+
+const NavbarLayoutBreadcrumbsusersCustomersIndexRoute =
+  NavbarLayoutBreadcrumbsusersCustomersIndexImport.update({
+    id: '/(users)/customers/',
+    path: '/customers/',
     getParentRoute: () => NavbarLayoutBreadcrumbsRouteRoute,
   } as any)
 
@@ -134,6 +142,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NavbarLayoutBreadcrumbsusersAgentsIndexImport
       parentRoute: typeof NavbarLayoutBreadcrumbsRouteImport
     }
+    '/_NavbarLayout/_breadcrumbs/(users)/customers/': {
+      id: '/_NavbarLayout/_breadcrumbs/(users)/customers/'
+      path: '/customers'
+      fullPath: '/customers'
+      preLoaderRoute: typeof NavbarLayoutBreadcrumbsusersCustomersIndexImport
+      parentRoute: typeof NavbarLayoutBreadcrumbsRouteImport
+    }
   }
 }
 
@@ -145,6 +160,7 @@ interface NavbarLayoutBreadcrumbsRouteRouteChildren {
   NavbarLayoutBreadcrumbsReportsIndexRoute: typeof NavbarLayoutBreadcrumbsReportsIndexRoute
   NavbarLayoutBreadcrumbsusersAgentsNewRoute: typeof NavbarLayoutBreadcrumbsusersAgentsNewRoute
   NavbarLayoutBreadcrumbsusersAgentsIndexRoute: typeof NavbarLayoutBreadcrumbsusersAgentsIndexRoute
+  NavbarLayoutBreadcrumbsusersCustomersIndexRoute: typeof NavbarLayoutBreadcrumbsusersCustomersIndexRoute
 }
 
 const NavbarLayoutBreadcrumbsRouteRouteChildren: NavbarLayoutBreadcrumbsRouteRouteChildren =
@@ -159,6 +175,8 @@ const NavbarLayoutBreadcrumbsRouteRouteChildren: NavbarLayoutBreadcrumbsRouteRou
       NavbarLayoutBreadcrumbsusersAgentsNewRoute,
     NavbarLayoutBreadcrumbsusersAgentsIndexRoute:
       NavbarLayoutBreadcrumbsusersAgentsIndexRoute,
+    NavbarLayoutBreadcrumbsusersCustomersIndexRoute:
+      NavbarLayoutBreadcrumbsusersCustomersIndexRoute,
   }
 
 const NavbarLayoutBreadcrumbsRouteRouteWithChildren =
@@ -188,6 +206,7 @@ export interface FileRoutesByFullPath {
   '/reports': typeof NavbarLayoutBreadcrumbsReportsIndexRoute
   '/agents/new': typeof NavbarLayoutBreadcrumbsusersAgentsNewRoute
   '/agents': typeof NavbarLayoutBreadcrumbsusersAgentsIndexRoute
+  '/customers': typeof NavbarLayoutBreadcrumbsusersCustomersIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -198,6 +217,7 @@ export interface FileRoutesByTo {
   '/reports': typeof NavbarLayoutBreadcrumbsReportsIndexRoute
   '/agents/new': typeof NavbarLayoutBreadcrumbsusersAgentsNewRoute
   '/agents': typeof NavbarLayoutBreadcrumbsusersAgentsIndexRoute
+  '/customers': typeof NavbarLayoutBreadcrumbsusersCustomersIndexRoute
 }
 
 export interface FileRoutesById {
@@ -210,6 +230,7 @@ export interface FileRoutesById {
   '/_NavbarLayout/_breadcrumbs/reports/': typeof NavbarLayoutBreadcrumbsReportsIndexRoute
   '/_NavbarLayout/_breadcrumbs/(users)/agents/new': typeof NavbarLayoutBreadcrumbsusersAgentsNewRoute
   '/_NavbarLayout/_breadcrumbs/(users)/agents/': typeof NavbarLayoutBreadcrumbsusersAgentsIndexRoute
+  '/_NavbarLayout/_breadcrumbs/(users)/customers/': typeof NavbarLayoutBreadcrumbsusersCustomersIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -222,6 +243,7 @@ export interface FileRouteTypes {
     | '/reports'
     | '/agents/new'
     | '/agents'
+    | '/customers'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
@@ -231,6 +253,7 @@ export interface FileRouteTypes {
     | '/reports'
     | '/agents/new'
     | '/agents'
+    | '/customers'
   id:
     | '__root__'
     | '/_NavbarLayout'
@@ -241,6 +264,7 @@ export interface FileRouteTypes {
     | '/_NavbarLayout/_breadcrumbs/reports/'
     | '/_NavbarLayout/_breadcrumbs/(users)/agents/new'
     | '/_NavbarLayout/_breadcrumbs/(users)/agents/'
+    | '/_NavbarLayout/_breadcrumbs/(users)/customers/'
   fileRoutesById: FileRoutesById
 }
 
@@ -280,7 +304,8 @@ export const routeTree = rootRoute
         "/_NavbarLayout/_breadcrumbs/payments/",
         "/_NavbarLayout/_breadcrumbs/reports/",
         "/_NavbarLayout/_breadcrumbs/(users)/agents/new",
-        "/_NavbarLayout/_breadcrumbs/(users)/agents/"
+        "/_NavbarLayout/_breadcrumbs/(users)/agents/",
+        "/_NavbarLayout/_breadcrumbs/(users)/customers/"
       ]
     },
     "/_NavbarLayout/": {
@@ -305,6 +330,10 @@ export const routeTree = rootRoute
     },
     "/_NavbarLayout/_breadcrumbs/(users)/agents/": {
       "filePath": "_NavbarLayout/_breadcrumbs/(users)/agents/index.tsx",
+      "parent": "/_NavbarLayout/_breadcrumbs"
+    },
+    "/_NavbarLayout/_breadcrumbs/(users)/customers/": {
+      "filePath": "_NavbarLayout/_breadcrumbs/(users)/customers/index.tsx",
       "parent": "/_NavbarLayout/_breadcrumbs"
     }
   }
